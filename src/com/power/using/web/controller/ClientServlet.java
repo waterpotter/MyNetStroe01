@@ -24,8 +24,37 @@ public class ClientServlet extends HttpServlet {
 		
 		if("showIndex".equals(op)){
 			showIndex(request,response);
+		}else if("showCategoryBooks".equals(op)){
+			showCategoryBooks(request,response);
 		}
 		
+	}
+
+	/**
+	 * 按照分类查询分页信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void showCategoryBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		List<Category> cs = s.findAllCategories();
+		request.setAttribute("cs", cs);
+		
+		String num = request.getParameter("num");
+		Page page = s.findBookPageRecords(num);
+		
+		String categoryId = request.getParameter("categoryId");
+		
+//		Page page=s.findBookPageRecords(num,categoryId);
+//	
+//		page.setUrl("/client/ClientServlet?op=showCategoryBooks&categoryId="+categoryId);
+//		request.setAttribute("page", page);
+//		request.getRequestDispatcher("/listBooks.jsp").forward(request, response);
+	 
+	
+	
 	}
 
 	/**
