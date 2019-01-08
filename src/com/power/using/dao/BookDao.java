@@ -35,4 +35,20 @@ public interface BookDao {
 	 */
 	List findPageRecords(int startIndex, int pageSize);
 
+	/**
+	 * 根据分类id查询记录条数
+	 * @param categoryId
+	 * @return
+	 */
+	int getTotalRecordsNum(String categoryId);
+
+	/**
+	 * 根据其实条数和页码和分类id,查找记录条数
+	 * @param startIndex
+	 * @param pageSize
+	 * @param categoryId
+	 * @return
+	 */
+	List findPageRecords(int startIndex, int pageSize, String categoryId);
+
 }

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	<%@include file="/manage/header.jsp" %>
+	<%@include file="/header.jsp" %>
+	<br/>
 	<a href="${pageContext.request.contextPath}">所有分类:</a>
-	<br/>
-	<br/>
+	
 	<c:forEach items="${cs }" var="c" varStatus="vs">
 		<a href="${pageContext.request.contextPath}/client/ClientServlet?op=showCategoryBooks&categoryId=${c.id}">${c.name }</a>
 	</c:forEach>
 	<br/>
 	<br/>
-	<table border="1" width="738" align="center">
+	<table border="1" width="738" align="center" >
 		<tr>
 			<c:forEach items="${page.records }" var="b">
 				<td>
@@ -18,7 +18,7 @@
 					书名:${b.name }<br>
 					作者:${b.author }<br>
 					价格:${b.price }<br>
-					<a href="">去看看</a>
+					<a href="${pageContext.request.contextPath}/client/ClientServlet?op=showBookDetial&bookId=${b.id}">去看看</a>
 				</td>
 			</c:forEach>
 		</tr>

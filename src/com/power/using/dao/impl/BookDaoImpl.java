@@ -75,4 +75,33 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 
+	@Override
+	public int getTotalRecordsNum(String categoryId) {
+		try {
+			Long num=(Long) qr.query("select count(*) from books where categoryId=?",new ScalarHandler(1),categoryId);
+			return num.intValue();
+		} catch (SQLException e) {
+			throw new RuntimeException("根据分类id获取总共的记录条数失败");
+		}
+		
+	}
+
+	@Override
+	public List findPageRecords(int startIndex, int pageSize, String categoryId) {
+		
+		try {
+			List<Book> books = qr.query("select * from books where categoryId=? limit ?,?", new BeanListHandler<Book>(Book.class),categoryId,startIndex,pageSize);
+			if(books!=null&&books.size()>0){
+				for (Book book : books) {
+					Category category = qr.query("select * from categorys where id=?", new BeanHandler<Category>(Category.class),categoryId);
+					book.setCategory(category);
+				}
+				
+			}
+			return books;
+		} catch (SQLException e) {
+			throw new RuntimeException("根据id查询书籍数据失败");
+		}
+	}
+
 }

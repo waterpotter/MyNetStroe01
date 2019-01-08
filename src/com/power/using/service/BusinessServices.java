@@ -47,5 +47,13 @@ public interface BusinessServices {
 	 * @return
 	 */
 	Page findBookPageRecords(String num);
+
+	/**
+	 * 根据页码和类别,查看分页数据
+	 * @param num
+	 * @param categoryId
+	 * @return
+	 */
+	Page findBookPageRecords(String num, String categoryId);
 	
 }
