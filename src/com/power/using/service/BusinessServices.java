@@ -5,6 +5,7 @@ import java.util.List;
 import com.power.using.common.Page;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
+import com.power.using.domian.Customer;
 
 public interface BusinessServices {
 
@@ -55,5 +56,26 @@ public interface BusinessServices {
 	 * @return
 	 */
 	Page findBookPageRecords(String num, String categoryId);
+	
+	/**
+	 * 添加客户
+	 * @param c
+	 */
+	void addCustomer(Customer c);
+	
+	/**
+	 * 根据用户id查找用户
+	 * @param customerId
+	 * @return
+	 */
+	Customer fingCustomer(String customerId);
+	
+	/**
+	 * 根据用户名和密码查找用户
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	Customer customerLogin(String username,String password);
 	
 }

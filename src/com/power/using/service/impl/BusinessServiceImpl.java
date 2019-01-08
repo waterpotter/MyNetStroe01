@@ -9,6 +9,7 @@ import com.power.using.dao.impl.BookDaoImpl;
 import com.power.using.dao.impl.CategoryDaoImpl;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
+import com.power.using.domian.Customer;
 import com.power.using.service.BusinessServices;
 import com.power.using.util.IdGenertor;
 
@@ -92,6 +93,22 @@ public class BusinessServiceImpl implements BusinessServices {
 		page.setRecords(records);
 		
 		return page;
+	}
+
+	@Override
+	public void addCustomer(Customer c) {
+	}
+
+	@Override
+	public Customer fingCustomer(String customerId) {
+		
+		return null;
+	}
+
+	@Override
+	public Customer customerLogin(String username, String password) {
+		
+		return null;
 	}
 
 }
