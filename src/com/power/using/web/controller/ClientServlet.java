@@ -13,8 +13,10 @@ import com.power.using.common.Page;
 import com.power.using.constant.Constants;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
+import com.power.using.domian.Customer;
 import com.power.using.service.BusinessServices;
 import com.power.using.service.impl.BusinessServiceImpl;
+import com.power.using.util.WebUtil;
 import com.power.using.web.beans.Cart;
 import com.power.using.web.beans.CartItem;
 
@@ -40,8 +42,65 @@ public class ClientServlet extends HttpServlet {
 			delOneItem(request,response);
 		}else if("delAllItem".equals(op)){
 			delAllItem(request,response);
+		}else if("registCustomer".equals(op)){
+			registCustomer(request,response);
+		}else if("loginCustomer".equals(op)){
+			loginCustomer(request,response);
+		}else if("logoutCustomer".equals(op)){
+			logoutCustomer(request,response);
 		}
 		
+	}
+
+	/**
+	 * 用户注销
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void logoutCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		request.getSession().removeAttribute(Constants.CUSTOMER_LOGIN_FLAG);
+		
+		response.sendRedirect(request.getContextPath());
+		
+		
+	}
+
+	/**
+	 * 用户登录
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void loginCustomer(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		Customer c = s.customerLogin(username, password);
+		request.getSession().setAttribute(Constants.CUSTOMER_LOGIN_FLAG, c);
+		response.sendRedirect(request.getContextPath());
+		
+	
+	}
+
+
+	/**
+	 * 用户注册
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void registCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Customer c = WebUtil.fillBean(request, Customer.class);
+		s.addCustomer(c);
+		response.getWriter().write("注册成功!2秒后跳转主页");
+		response.setHeader("Refresh", "2;URL="+request.getContextPath());
+		
+	
 	}
 
 	/**

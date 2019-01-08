@@ -16,8 +16,15 @@
 	<br/>
 	<br/>
 	<a href="${pageContext.request.contextPath}">首页</a>
-	<a href="${pageContext.request.contextPath}">登录</a>
-	<a href="${pageContext.request.contextPath}">免费注册</a>
+	<c:if test="${sessionScope.customer==null }">
+		<a href="${pageContext.request.contextPath}/login.jsp">登录</a>
+		<a href="${pageContext.request.contextPath}/regist.jsp">免费注册</a>
+	</c:if>
+	<c:if test="${sessionScope.customer!=null }">
+		欢迎您:${sessionScope.customer.nickname}
+		<a href="${pageContext.request.contextPath}/client/ClientServlet?op=logoutCustomer">注销</a>
+	</c:if>
+	
 	<a href="${pageContext.request.contextPath}">我的订单</a>
 	<a href="${pageContext.request.contextPath}/showCart.jsp">购物车</a>
 	<br/>

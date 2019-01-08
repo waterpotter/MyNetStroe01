@@ -5,8 +5,10 @@ import java.util.List;
 import com.power.using.common.Page;
 import com.power.using.dao.BookDao;
 import com.power.using.dao.CategoryDao;
+import com.power.using.dao.CustomerDao;
 import com.power.using.dao.impl.BookDaoImpl;
 import com.power.using.dao.impl.CategoryDaoImpl;
+import com.power.using.dao.impl.CustometDaoImpl;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
@@ -18,6 +20,8 @@ public class BusinessServiceImpl implements BusinessServices {
 	private CategoryDao categoryDao=new CategoryDaoImpl();
 	
 	private BookDao bookDao=new BookDaoImpl();
+	
+	private CustomerDao customerDao=new CustometDaoImpl();
 	
 	@Override
 	public void addCategory(Category c) {
@@ -97,18 +101,21 @@ public class BusinessServiceImpl implements BusinessServices {
 
 	@Override
 	public void addCustomer(Customer c) {
+		c.setId(IdGenertor.genGUID());
+		customerDao.save(c);
+		
 	}
 
 	@Override
 	public Customer fingCustomer(String customerId) {
 		
-		return null;
+		return customerDao.findOne(customerId);
 	}
 
 	@Override
 	public Customer customerLogin(String username, String password) {
 		
-		return null;
+		return customerDao.find(username,password);
 	}
 
 }
