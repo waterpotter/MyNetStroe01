@@ -29,4 +29,10 @@ public interface OrderDao {
 	 */
 	List<Order> findByCustomer(String customerId);
 
+	/**
+	 * 更改订单状态
+	 * @param order
+	 */
+	void updateStatus(Order order);
+
 }

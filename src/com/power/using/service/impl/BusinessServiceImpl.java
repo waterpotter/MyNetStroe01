@@ -151,4 +151,10 @@ public class BusinessServiceImpl implements BusinessServices {
 		return orderDao.findByCustomer(c.getId());
 	}
 
+	@Override
+	public void changeOrderStatus(Order order) {
+		orderDao.updateStatus(order);
+		
+	}
+
 }

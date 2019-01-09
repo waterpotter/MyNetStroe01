@@ -25,7 +25,7 @@
 		<a href="${pageContext.request.contextPath}/client/ClientServlet?op=logoutCustomer">注销</a>
 	</c:if>
 	
-	<a href="${pageContext.request.contextPath}">我的订单</a>
+	<a href="${pageContext.request.contextPath}/client/ClientServlet?op=showCustomerOrders">我的订单</a>
 	<a href="${pageContext.request.contextPath}/showCart.jsp">购物车</a>
 	<br/>
 	

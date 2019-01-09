@@ -98,6 +98,12 @@ public interface BusinessServices {
 	 * @param c
 	 */
 	List<Order> findCustomerOrders(Customer c);
+
+	/**
+	 * 改变订单状态
+	 * @param order
+	 */
+	void changeOrderStatus(Order order);
 	
 	
 	

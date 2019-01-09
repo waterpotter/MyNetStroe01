@@ -61,4 +61,16 @@ public class OrderDaoImpl implements OrderDao {
 		}
 	}
 
+	@Override
+	public void updateStatus(Order order) {
+		try {
+			
+			qr.update("update orders set status=? where ordernum=?",order.getStatus(),order.getOrdernum());
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
 }

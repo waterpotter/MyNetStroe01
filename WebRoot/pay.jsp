@@ -13,7 +13,7 @@
 			<tr>  
 				<td bgcolor="#F7FEFF" colspan="4">
 			 		订单号：<INPUT TYPE="text" NAME="ordernum" value="${order.ordernum}${param.ordernum}" readonly="readonly"/> 
-			 		支付金额：<INPUT TYPE="text" NAME="money" size="6" value="${order.money}" readonly="readonly">元
+			 		支付金额：<INPUT TYPE="text" NAME="money" size="6" value="0.01" readonly="readonly">元
 			 	</td>
 			</tr>
 			<tr><td><br/></td></tr>
