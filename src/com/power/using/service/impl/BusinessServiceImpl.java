@@ -6,12 +6,16 @@ import com.power.using.common.Page;
 import com.power.using.dao.BookDao;
 import com.power.using.dao.CategoryDao;
 import com.power.using.dao.CustomerDao;
+import com.power.using.dao.OrderDao;
 import com.power.using.dao.impl.BookDaoImpl;
 import com.power.using.dao.impl.CategoryDaoImpl;
 import com.power.using.dao.impl.CustometDaoImpl;
+import com.power.using.dao.impl.OrderDaoImpl;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
+import com.power.using.domian.Order;
+import com.power.using.domian.OrderItem;
 import com.power.using.service.BusinessServices;
 import com.power.using.util.IdGenertor;
 
@@ -22,6 +26,8 @@ public class BusinessServiceImpl implements BusinessServices {
 	private BookDao bookDao=new BookDaoImpl();
 	
 	private CustomerDao customerDao=new CustometDaoImpl();
+	
+	private OrderDao orderDao=new OrderDaoImpl();
 	
 	@Override
 	public void addCategory(Category c) {
@@ -116,6 +122,33 @@ public class BusinessServiceImpl implements BusinessServices {
 	public Customer customerLogin(String username, String password) {
 		
 		return customerDao.find(username,password);
+	}
+
+	@Override
+	public void genOrder(Order o) {
+		
+		if(o.getCustomer()==null){
+			throw new IllegalArgumentException("订单所属客户信息不存在");
+		}
+		if(o.getItems()==null||o.getItems().size()==0){
+			throw new IllegalArgumentException("订单的订单项不存在,没必要生成订单");
+		}
+	
+		orderDao.save(o);
+		
+		
+	}
+
+	@Override
+	public Order findOrderByNum(String ordernum) {
+		
+		return orderDao.findByNum(ordernum);
+	}
+
+	@Override
+	public List<Order> findCustomerOrders(Customer c) {
+		
+		return orderDao.findByCustomer(c.getId());
 	}
 
 }

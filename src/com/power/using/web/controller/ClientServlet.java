@@ -1,7 +1,9 @@
 package com.power.using.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +16,11 @@ import com.power.using.constant.Constants;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
+import com.power.using.domian.Order;
+import com.power.using.domian.OrderItem;
 import com.power.using.service.BusinessServices;
 import com.power.using.service.impl.BusinessServiceImpl;
+import com.power.using.util.IdGenertor;
 import com.power.using.util.WebUtil;
 import com.power.using.web.beans.Cart;
 import com.power.using.web.beans.CartItem;
@@ -48,7 +53,59 @@ public class ClientServlet extends HttpServlet {
 			loginCustomer(request,response);
 		}else if("logoutCustomer".equals(op)){
 			logoutCustomer(request,response);
+		}else if("genOrder".equals(op)){
+			genOrder(request,response);
 		}
+		
+	}
+
+	/**
+	 * 生成订单
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void genOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//先验证用户是否登录
+		HttpSession session = request.getSession();
+		Customer c = (Customer) session.getAttribute(Constants.CUSTOMER_LOGIN_FLAG);
+		if(c==null){
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+			return;
+		
+		}
+		
+		Cart cart=(Cart) session.getAttribute(Constants.HTTPSESSION_CART);
+		if(cart==null){
+			response.getWriter().write("会话超时");
+			return;
+		}
+		//这里生成订单数据
+		Order order=new Order();
+		order.setOrdernum(IdGenertor.genOrdernum());
+		order.setQuantity(cart.getTotalQuantity());
+		order.setMoney(cart.getTotalMoney());
+		order.setCustomer(c);
+		List<OrderItem> oItems=new ArrayList<>();
+		for(Map.Entry<String,CartItem> me:cart.getItems().entrySet()){
+			CartItem cItem = me.getValue();
+			OrderItem oItem = new OrderItem();
+			oItem.setId(IdGenertor.genGUID());
+			oItem.setBook(cItem.getBook());
+			oItem.setPrice(cItem.getMoney());
+			oItem.setQuantity(cItem.getQuantity());
+			
+			oItems.add(oItem);
+		}
+		//建立订单项和订单的关系
+		order.setItems(oItems);
+		//保存订单跳转到支付页面
+		s.genOrder(order);
+		
+		request.setAttribute("order", order);
+		request.getRequestDispatcher("/pay.jsp").forward(request, response);
+		
 		
 	}
 

@@ -6,6 +6,8 @@ import com.power.using.common.Page;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
+import com.power.using.domian.Order;
+import com.power.using.domian.OrderItem;
 
 public interface BusinessServices {
 
@@ -77,5 +79,30 @@ public interface BusinessServices {
 	 * @return
 	 */
 	Customer customerLogin(String username,String password);
+	
+	/**
+	 * 生成订单
+	 * @param o
+	 */
+	void genOrder(Order o);
+	
+	/**
+	 * 根据订单号查询订单
+	 * @param num
+	 * @return
+	 */
+	Order findOrderByNum(String num);
+	
+	/**
+	 * 根据用户信息查询用户自己的订单
+	 * @param c
+	 */
+	List<Order> findCustomerOrders(Customer c);
+	
+	
+	
+	
+	
+	
 	
 }
