@@ -7,15 +7,20 @@ import com.power.using.dao.BookDao;
 import com.power.using.dao.CategoryDao;
 import com.power.using.dao.CustomerDao;
 import com.power.using.dao.OrderDao;
+import com.power.using.dao.PriviligeDao;
 import com.power.using.dao.impl.BookDaoImpl;
 import com.power.using.dao.impl.CategoryDaoImpl;
 import com.power.using.dao.impl.CustometDaoImpl;
 import com.power.using.dao.impl.OrderDaoImpl;
+import com.power.using.dao.impl.PriviligeDaoImpl;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
+import com.power.using.domian.Function;
 import com.power.using.domian.Order;
 import com.power.using.domian.OrderItem;
+import com.power.using.domian.Role;
+import com.power.using.domian.User;
 import com.power.using.service.BusinessServices;
 import com.power.using.util.IdGenertor;
 
@@ -28,6 +33,8 @@ public class BusinessServiceImpl implements BusinessServices {
 	private CustomerDao customerDao=new CustometDaoImpl();
 	
 	private OrderDao orderDao=new OrderDaoImpl();
+	
+	private PriviligeDao priviligdDao=new PriviligeDaoImpl();
 	
 	@Override
 	public void addCategory(Category c) {
@@ -155,6 +162,24 @@ public class BusinessServiceImpl implements BusinessServices {
 	public void changeOrderStatus(Order order) {
 		orderDao.updateStatus(order);
 		
+	}
+
+	@Override
+	public User login(String username, String password) {
+		
+		return priviligdDao.find(username,password);
+	}
+
+	@Override
+	public List<Role> findRolesByUser(User user) {
+		
+		return priviligdDao.findRolesByUser(user);
+	}
+
+	@Override
+	public List<Function> findFunctionByRole(Role role) {
+		
+		return priviligdDao.findFunctionByRole(role);
 	}
 
 }

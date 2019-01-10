@@ -11,6 +11,17 @@
   	<filter-name>SetCharacterEncodingFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <filter>
+  	<filter-name>PriviligeFilter</filter-name>
+  	<filter-class>com.power.using.filter.PriviligeFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>PriviligeFilter</filter-name>
+  	<url-pattern>/manage/*</url-pattern>
+  </filter-mapping>
+  
   <servlet>
     <servlet-name>ManageServlet</servlet-name>
     <servlet-class>com.power.using.web.controller.ManageServlet</servlet-class>
@@ -27,6 +38,11 @@
     <servlet-name>ResponseServlet</servlet-name>
     <servlet-class>com.power.using.web.controller.ResponseServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>PrivilegeServlet</servlet-name>
+    <servlet-class>com.power.using.web.controller.PrivilegeServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -46,6 +62,10 @@
   <servlet-mapping>
     <servlet-name>ResponseServlet</servlet-name>
     <url-pattern>/servlet/ResponseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PrivilegeServlet</servlet-name>
+    <url-pattern>/privilege/PrivilegeServlet</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>

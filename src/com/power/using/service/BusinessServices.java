@@ -6,8 +6,10 @@ import com.power.using.common.Page;
 import com.power.using.domian.Book;
 import com.power.using.domian.Category;
 import com.power.using.domian.Customer;
+import com.power.using.domian.Function;
 import com.power.using.domian.Order;
-import com.power.using.domian.OrderItem;
+import com.power.using.domian.Role;
+import com.power.using.domian.User;
 
 public interface BusinessServices {
 
@@ -105,10 +107,26 @@ public interface BusinessServices {
 	 */
 	void changeOrderStatus(Order order);
 	
+	/**
+	 * 后台登录
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	User login(String username,String password);
+
+	/**
+	 * 查询用户拥有的角色
+	 * @param user
+	 * @return
+	 */
+	List<Role> findRolesByUser(User user);
 	
-	
-	
-	
-	
+	/**
+	 * 查询角色拥有的功能
+	 * @param user
+	 * @return
+	 */
+	List<Function> findFunctionByRole(Role role);
 	
 }
